@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="StadtLandFlussModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="StadtLandFlussModelStoreContainer">
+    <EntitySet Name="People" EntityType="StadtLandFlussModel.Store.People" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NamedObjects" EntityType="StadtLandFlussModel.Store.NamedObjects" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NamedObjects_Land" EntityType="StadtLandFlussModel.Store.NamedObjects_Land" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NamedObjects_Stadt" EntityType="StadtLandFlussModel.Store.NamedObjects_Stadt" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NamedObjects_Fluss" EntityType="StadtLandFlussModel.Store.NamedObjects_Fluss" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StadtFluss" EntityType="StadtLandFlussModel.Store.StadtFluss" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StadtPerson1" EntityType="StadtLandFlussModel.Store.StadtPerson1" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="LiegtIn" Association="StadtLandFlussModel.Store.LandStadt">
+      <End Role="Land" EntitySet="NamedObjects_Land" />
+      <End Role="Stadt" EntitySet="NamedObjects_Stadt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StadtFluss_Stadt" Association="StadtLandFlussModel.Store.FK_StadtFluss_Stadt">
+      <End Role="Stadt" EntitySet="NamedObjects_Stadt" />
+      <End Role="StadtFluss" EntitySet="StadtFluss" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StadtFluss_Fluss" Association="StadtLandFlussModel.Store.FK_StadtFluss_Fluss">
+      <End Role="Fluss" EntitySet="NamedObjects_Fluss" />
+      <End Role="StadtFluss" EntitySet="StadtFluss" />
+    </AssociationSet>
+    <AssociationSet Name="GeborenIn" Association="StadtLandFlussModel.Store.StadtPerson">
+      <End Role="Stadt" EntitySet="NamedObjects_Stadt" />
+      <End Role="Person" EntitySet="People" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StadtPerson1_Stadt" Association="StadtLandFlussModel.Store.FK_StadtPerson1_Stadt">
+      <End Role="Stadt" EntitySet="NamedObjects_Stadt" />
+      <End Role="StadtPerson1" EntitySet="StadtPerson1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StadtPerson1_Person" Association="StadtLandFlussModel.Store.FK_StadtPerson1_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="StadtPerson1" EntitySet="StadtPerson1" />
+    </AssociationSet>
+    <AssociationSet Name="HauptsStadt" Association="StadtLandFlussModel.Store.HauptStadt">
+      <End Role="Land" EntitySet="NamedObjects_Land" />
+      <End Role="Stadt" EntitySet="NamedObjects_Stadt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Land_inherits_NamedObject" Association="StadtLandFlussModel.Store.FK_Land_inherits_NamedObject">
+      <End Role="NamedObject" EntitySet="NamedObjects" />
+      <End Role="Land" EntitySet="NamedObjects_Land" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Stadt_inherits_NamedObject" Association="StadtLandFlussModel.Store.FK_Stadt_inherits_NamedObject">
+      <End Role="NamedObject" EntitySet="NamedObjects" />
+      <End Role="Stadt" EntitySet="NamedObjects_Stadt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Fluss_inherits_NamedObject" Association="StadtLandFlussModel.Store.FK_Fluss_inherits_NamedObject">
+      <End Role="NamedObject" EntitySet="NamedObjects" />
+      <End Role="Fluss" EntitySet="NamedObjects_Fluss" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="People">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Vorname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Familienname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="GeborenInId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NamedObjects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NamedObjects_Land">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="HauptStadtId" Type="int" Nullable="true" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NamedObjects_Stadt">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="LiegtInId" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NamedObjects_Fluss">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Male" Type="bit" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StadtFluss">
+    <Key>
+      <PropertyRef Name="Durchfließt_Id" />
+      <PropertyRef Name="LiegtAn_Id" />
+    </Key>
+    <Property Name="Durchfließt_Id" Type="int" Nullable="false" />
+    <Property Name="LiegtAn_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StadtPerson1">
+    <Key>
+      <PropertyRef Name="WohntIn_Id" />
+      <PropertyRef Name="Einwohner_Id" />
+    </Key>
+    <Property Name="WohntIn_Id" Type="int" Nullable="false" />
+    <Property Name="Einwohner_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="LandStadt">
+    <End Role="Land" Type="StadtLandFlussModel.Store.NamedObjects_Land" Multiplicity="1" />
+    <End Role="Stadt" Type="StadtLandFlussModel.Store.NamedObjects_Stadt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Land">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Stadt">
+        <PropertyRef Name="LiegtInId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StadtPerson">
+    <End Role="Stadt" Type="StadtLandFlussModel.Store.NamedObjects_Stadt" Multiplicity="1" />
+    <End Role="Person" Type="StadtLandFlussModel.Store.People" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stadt">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Person">
+        <PropertyRef Name="GeborenInId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="HauptStadt">
+    <End Role="Land" Type="StadtLandFlussModel.Store.NamedObjects_Land" Multiplicity="*" />
+    <End Role="Stadt" Type="StadtLandFlussModel.Store.NamedObjects_Stadt" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Stadt">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Land">
+        <PropertyRef Name="HauptStadtId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StadtFluss_Stadt">
+    <End Role="Stadt" Type="StadtLandFlussModel.Store.NamedObjects_Stadt" Multiplicity="1" />
+    <End Role="StadtFluss" Type="StadtLandFlussModel.Store.StadtFluss" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stadt">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StadtFluss">
+        <PropertyRef Name="Durchfließt_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StadtFluss_Fluss">
+    <End Role="StadtFluss" Type="StadtLandFlussModel.Store.StadtFluss" Multiplicity="*" />
+    <End Role="Fluss" Type="StadtLandFlussModel.Store.NamedObjects_Fluss" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Fluss">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StadtFluss">
+        <PropertyRef Name="LiegtAn_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StadtPerson1_Stadt">
+    <End Role="Stadt" Type="StadtLandFlussModel.Store.NamedObjects_Stadt" Multiplicity="1" />
+    <End Role="StadtPerson1" Type="StadtLandFlussModel.Store.StadtPerson1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stadt">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StadtPerson1">
+        <PropertyRef Name="WohntIn_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StadtPerson1_Person">
+    <End Role="StadtPerson1" Type="StadtLandFlussModel.Store.StadtPerson1" Multiplicity="*" />
+    <End Role="Person" Type="StadtLandFlussModel.Store.People" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StadtPerson1">
+        <PropertyRef Name="Einwohner_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Land_inherits_NamedObject">
+    <End Role="NamedObject" Type="StadtLandFlussModel.Store.NamedObjects" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Land" Type="StadtLandFlussModel.Store.NamedObjects_Land" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="NamedObject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Land">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Stadt_inherits_NamedObject">
+    <End Role="NamedObject" Type="StadtLandFlussModel.Store.NamedObjects" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Stadt" Type="StadtLandFlussModel.Store.NamedObjects_Stadt" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="NamedObject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Stadt">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Fluss_inherits_NamedObject">
+    <End Role="NamedObject" Type="StadtLandFlussModel.Store.NamedObjects" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Fluss" Type="StadtLandFlussModel.Store.NamedObjects_Fluss" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="NamedObject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Fluss">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="StadtLandFlussModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="StadtLandFlussModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="People" EntityType="StadtLandFlussModel.Person" />
+          <EntitySet Name="NamedObjects" EntityType="StadtLandFlussModel.NamedObject" />
+          <AssociationSet Name="LiegtIn" Association="StadtLandFlussModel.LandStadt">
+            <End Role="Land" EntitySet="NamedObjects" />
+            <End Role="Stadt" EntitySet="NamedObjects" />
+          </AssociationSet>
+          <AssociationSet Name="StadtFluss" Association="StadtLandFlussModel.StadtFluss">
+            <End Role="Stadt" EntitySet="NamedObjects" />
+            <End Role="Fluss" EntitySet="NamedObjects" />
+          </AssociationSet>
+          <AssociationSet Name="GeborenIn" Association="StadtLandFlussModel.StadtPerson">
+            <End Role="Stadt" EntitySet="NamedObjects" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="StadtPerson1" Association="StadtLandFlussModel.StadtPerson1">
+            <End Role="Stadt" EntitySet="NamedObjects" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="HauptsStadt" Association="StadtLandFlussModel.HauptStadt">
+            <End Role="Land" EntitySet="NamedObjects" />
+            <End Role="Stadt" EntitySet="NamedObjects" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Land" BaseType="StadtLandFlussModel.NamedObject">
+          <NavigationProperty Name="Staedte" Relationship="StadtLandFlussModel.LandStadt" FromRole="Land" ToRole="Stadt" />
+          <NavigationProperty Name="HauptStadt" Relationship="StadtLandFlussModel.HauptStadt" FromRole="Land" ToRole="Stadt" />
+          <Property Name="HauptStadtId" Type="Int32" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vorname" Type="String" Nullable="false" />
+          <Property Name="Familienname" Type="String" Nullable="false" />
+          <NavigationProperty Name="GeborenIn" Relationship="StadtLandFlussModel.StadtPerson" FromRole="Person" ToRole="Stadt" />
+          <NavigationProperty Name="WohntIn" Relationship="StadtLandFlussModel.StadtPerson1" FromRole="Person" ToRole="Stadt" />
+          <Property Name="GeborenInId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fluss" BaseType="StadtLandFlussModel.NamedObject">
+          <NavigationProperty Name="Durchfließt" Relationship="StadtLandFlussModel.StadtFluss" FromRole="Fluss" ToRole="Stadt" />
+          <Property Name="Male" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stadt" BaseType="StadtLandFlussModel.NamedObject">
+          <NavigationProperty Name="LiegtIn" Relationship="StadtLandFlussModel.LandStadt" FromRole="Stadt" ToRole="Land" />
+          <NavigationProperty Name="LiegtAn" Relationship="StadtLandFlussModel.StadtFluss" FromRole="Stadt" ToRole="Fluss" />
+          <NavigationProperty Name="WurdenHierGeboren" Relationship="StadtLandFlussModel.StadtPerson" FromRole="Stadt" ToRole="Person" />
+          <NavigationProperty Name="Einwohner" Relationship="StadtLandFlussModel.StadtPerson1" FromRole="Stadt" ToRole="Person" />
+          <Property Name="LiegtInId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HauptstadtVon" Relationship="StadtLandFlussModel.HauptStadt" FromRole="Stadt" ToRole="Land" />
+        </EntityType>
+        <EntityType Name="NamedObject" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="LandStadt">
+          <End Type="StadtLandFlussModel.Land" Role="Land" Multiplicity="1" />
+          <End Type="StadtLandFlussModel.Stadt" Role="Stadt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Land">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stadt">
+              <PropertyRef Name="LiegtInId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StadtFluss">
+          <End Type="StadtLandFlussModel.Stadt" Role="Stadt" Multiplicity="*" />
+          <End Type="StadtLandFlussModel.Fluss" Role="Fluss" Multiplicity="*" />
+        </Association>
+        <Association Name="StadtPerson">
+          <End Type="StadtLandFlussModel.Stadt" Role="Stadt" Multiplicity="1" />
+          <End Type="StadtLandFlussModel.Person" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stadt">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="GeborenInId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StadtPerson1">
+          <End Type="StadtLandFlussModel.Stadt" Role="Stadt" Multiplicity="*" />
+          <End Type="StadtLandFlussModel.Person" Role="Person" Multiplicity="*" />
+        </Association>
+        <Association Name="HauptStadt">
+          <End Type="StadtLandFlussModel.Land" Role="Land" Multiplicity="*" />
+          <End Type="StadtLandFlussModel.Stadt" Role="Stadt" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Stadt">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Land">
+              <PropertyRef Name="HauptStadtId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StadtLandFlussModelStoreContainer" CdmEntityContainer="StadtLandFlussModelContainer">
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="IsTypeOf(StadtLandFlussModel.Person)">
+        <MappingFragment StoreEntitySet="People">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Familienname" ColumnName="Familienname" />
+          <ScalarProperty Name="GeborenInId" ColumnName="GeborenInId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NamedObjects">
+      <EntityTypeMapping TypeName="IsTypeOf(StadtLandFlussModel.NamedObject)">
+        <MappingFragment StoreEntitySet="NamedObjects">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(StadtLandFlussModel.Land)">
+        <MappingFragment StoreEntitySet="NamedObjects_Land">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="HauptStadtId" ColumnName="HauptStadtId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(StadtLandFlussModel.Stadt)">
+        <MappingFragment StoreEntitySet="NamedObjects_Stadt">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LiegtInId" ColumnName="LiegtInId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(StadtLandFlussModel.Fluss)">
+        <MappingFragment StoreEntitySet="NamedObjects_Fluss">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Male" ColumnName="Male" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="StadtFluss" TypeName="StadtLandFlussModel.StadtFluss" StoreEntitySet="StadtFluss">
+      <EndProperty Name="Stadt">
+        <ScalarProperty Name="Id" ColumnName="Durchfließt_Id" />
+      </EndProperty>
+      <EndProperty Name="Fluss">
+        <ScalarProperty Name="Id" ColumnName="LiegtAn_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StadtPerson1" TypeName="StadtLandFlussModel.StadtPerson1" StoreEntitySet="StadtPerson1">
+      <EndProperty Name="Stadt">
+        <ScalarProperty Name="Id" ColumnName="WohntIn_Id" />
+      </EndProperty>
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Einwohner_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

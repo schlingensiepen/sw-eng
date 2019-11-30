@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a1baf7f533b44433ac3e94bfcbdee64f" Name="Diagram1" >
+        <EntityTypeShape EntityType="StadtLandFlussModel.Land" Width="1.5" PointX="4.375" PointY="1.625" />
+        <EntityTypeShape EntityType="StadtLandFlussModel.Person" Width="3.25" PointX="8" PointY="4.75" />
+        <EntityTypeShape EntityType="StadtLandFlussModel.Fluss" Width="1.5" PointX="0.625" PointY="3.625" />
+        <EntityTypeShape EntityType="StadtLandFlussModel.Stadt" Width="2.375" PointX="8.625" PointY="0.625" />
+        <EntityTypeShape EntityType="StadtLandFlussModel.NamedObject" Width="1.5" PointX="0.625" PointY="0.5" />
+        <InheritanceConnector EntityType="StadtLandFlussModel.Stadt" />
+        <InheritanceConnector EntityType="StadtLandFlussModel.Land" ManuallyRouted="true" >
+          <ConnectorPoint PointX="2.125" PointY="1.2619674775094696" />
+          <ConnectorPoint PointX="5.125" PointY="1.2619674775094696" />
+          <ConnectorPoint PointX="5.125" PointY="1.625" />
+        </InheritanceConnector>
+        <InheritanceConnector EntityType="StadtLandFlussModel.Fluss" />
+        <AssociationConnector Association="StadtLandFlussModel.LandStadt" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="StadtLandFlussModel.StadtFluss" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="StadtLandFlussModel.StadtPerson" />
+        <AssociationConnector Association="StadtLandFlussModel.StadtPerson1" />
+        <AssociationConnector Association="StadtLandFlussModel.HauptStadt" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
