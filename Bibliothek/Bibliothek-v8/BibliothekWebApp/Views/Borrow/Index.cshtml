@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BibliothekLib.Media>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Work.Titel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Work.Author)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Work.Titel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Work.Author)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.Id })
+            @if (item.User == null)
+            {
+                @:|
+                @Html.ActionLink("Leihen", "Borrow", new {id = item.Id})
+            }
+            @if (item.User == ViewBag.User || 
+                (item.User != null && ViewBag.User.RoleStaff))
+            {
+                @:|
+                @Html.ActionLink("Zurückgeben", "Return", new {id = item.Id})
+            }
+        </td>
+    </tr>
+}
+
+</table>

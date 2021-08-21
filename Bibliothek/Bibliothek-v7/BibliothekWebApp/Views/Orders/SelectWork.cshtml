@@ -1,0 +1,76 @@
+﻿@model IEnumerable<BibliothekLib.Work>
+
+@{
+    ViewBag.Title = "SelectWork";
+}
+
+@if (ViewBag.Costumer != null)
+{
+    <h2>Vorbestellung für</h2>
+    @ViewBag.Costumer.ToString();
+}
+
+
+<h2>Werk wählen</h2>
+<p>
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="glyphicon glyphicon-filter"></i>
+        </span>
+        <input type="text"
+               class="form-control"
+               id="filterText"
+               onkeyup="filter()"
+               placeholder="Filter eingeben ...">
+    </div>
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Verlag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Standort)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Verlag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Standort)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", "Works", new {id = item.Id}, null) | 
+            @if (ViewBag.Costumer == null)
+            {
+                @Html.ActionLink("Wählen", "SelectUser",
+                    new {workId = item.Id})
+            }
+            else
+            {
+                @Html.ActionLink("Bestellen", "Create",
+                    new {userId = ViewBag.Costumer.Id, workId = item.Id})
+            }
+        </td>
+    </tr>
+}
+@Scripts.Render("~/Scripts/dataFilter.js")
+
+</table>

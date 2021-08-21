@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibliothekLib", "BibliothekLib\BibliothekLib.csproj", "{70A3843B-180E-4037-B4FD-D87E19880557}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibliothekApplication", "BibliothekApplication\BibliothekApplication.csproj", "{A7229645-6BBC-4E72-B38C-CE05C059E890}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibliothekWebApp", "BibliothekWebApp\BibliothekWebApp.csproj", "{F34548AE-381C-4F3E-8710-D77E2D6DF542}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{70A3843B-180E-4037-B4FD-D87E19880557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A3843B-180E-4037-B4FD-D87E19880557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70A3843B-180E-4037-B4FD-D87E19880557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A3843B-180E-4037-B4FD-D87E19880557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7229645-6BBC-4E72-B38C-CE05C059E890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7229645-6BBC-4E72-B38C-CE05C059E890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7229645-6BBC-4E72-B38C-CE05C059E890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7229645-6BBC-4E72-B38C-CE05C059E890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F34548AE-381C-4F3E-8710-D77E2D6DF542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F34548AE-381C-4F3E-8710-D77E2D6DF542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F34548AE-381C-4F3E-8710-D77E2D6DF542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F34548AE-381C-4F3E-8710-D77E2D6DF542}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

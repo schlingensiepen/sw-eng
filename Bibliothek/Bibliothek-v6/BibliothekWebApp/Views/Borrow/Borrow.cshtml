@@ -1,0 +1,49 @@
+﻿@model BibliothekLib.Media
+
+@{
+    ViewBag.Title = "Borrow";
+}
+
+<h2>Ausleihen</h2>
+
+<div>
+    @Html.ValidationSummary(true, "Medium konnte nicht ausgeliehen werden", 
+    new { @class = "text-danger" })
+    @if (Model.User == ViewBag.User)
+    {
+        <div class="text-success">Medium ausgeliehen.</div>
+    }
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Work.Titel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Work.Titel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Work.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Work.Author)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Werkverzeichnis", "Index", "Catalog")
+    |
+    @Html.ActionLink("Medienliste", "Index")
+</p>

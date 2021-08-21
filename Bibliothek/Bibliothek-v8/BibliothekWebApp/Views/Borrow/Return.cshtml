@@ -1,0 +1,51 @@
+﻿@model BibliothekLib.Media
+
+@{
+    ViewBag.Title = "Return";
+}
+
+<h2>Return</h2>
+
+<div>
+    @Html.ValidationSummary(true, "Medium konnte nicht zurück gegeben werden", 
+        new { @class = "text-danger" })
+    @if (Model.User == null)
+    {
+        <div class="text-success">Medium zurückgegeben.</div>
+    }
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Work.Titel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Work.Titel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Work.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Work.Author)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Werkverzeichnis", "Index", "Catalog")
+    |
+    @Html.ActionLink("Medienliste", "Index")
+    |
+    @Html.ActionLink("Leihliste", "My")
+</p>

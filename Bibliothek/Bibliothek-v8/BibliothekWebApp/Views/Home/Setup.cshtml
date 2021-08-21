@@ -1,0 +1,19 @@
+﻿@model BibliothekLib.User
+
+<div>
+    <h4>Setup</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @{int i = 0;}
+        @foreach (var message in ViewBag.Messages)
+        {
+            <dt>
+                @i
+                @{ i++; }
+            </dt>
+            <dd>
+                @message
+            </dd>
+        }
+    </dl>
+</div>

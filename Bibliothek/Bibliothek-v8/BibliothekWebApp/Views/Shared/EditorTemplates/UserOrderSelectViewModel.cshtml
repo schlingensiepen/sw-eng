@@ -1,0 +1,8 @@
+﻿@model BibliothekWebApp.Models.UserOrderSelectViewModel
+<tr>    
+    <td>
+        @Html.HiddenFor(model => Model.UserId)
+        @Model.DisplayName
+    </td>
+    @Html.EditorFor(model => Model.WorkUserOrderSelects)
+</tr>

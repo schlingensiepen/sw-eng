@@ -1,0 +1,88 @@
+﻿@model IEnumerable<BibliothekLib.User>
+
+@{
+    ViewBag.Title = "SelectUser";
+}
+
+@if (ViewBag.Work != null)
+{
+    <h2>Werk zur Vorstellung</h2>
+    @ViewBag.Work.ToString();
+}
+
+<h2>Besteller wählen</h2>
+
+<p>
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="glyphicon glyphicon-filter"></i>
+        </span>
+        <input type="text"
+               class="form-control"
+               id="filterText"
+               onkeyup="filter()"
+               placeholder="Filter eingeben ...">
+    </div>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Familyname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Street)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EMail)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Familyname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMail)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", "Users", new {id = item.Id}, null) | 
+                @if (ViewBag.Work == null)
+                {
+                    @Html.ActionLink("Wählen", "SelectWork",
+                        new {userId = item.Id})
+                }
+                else
+                {
+                    @Html.ActionLink("Bestellen", "Create",
+                        new {workId = ViewBag.Work.Id, userId = item.Id})
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+@Scripts.Render("~/Scripts/dataFilter.js")
+

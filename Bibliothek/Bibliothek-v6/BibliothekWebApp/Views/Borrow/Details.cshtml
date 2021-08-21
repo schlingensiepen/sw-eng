@@ -1,0 +1,50 @@
+﻿@model BibliothekLib.Media
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Media</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Work.Titel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Work.Titel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Name)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Zur Liste", "Index")
+    @if (Model.User == null)
+    {
+        @:|
+        @Html.ActionLink("Leihen", "Borrow", new {id = Model.Id})
+    }
+    @if (Model.User == ViewBag.User)
+    {
+        @:|
+        @Html.ActionLink("Zurückgeben", "Return", new {id = Model.Id})
+    }
+</p>

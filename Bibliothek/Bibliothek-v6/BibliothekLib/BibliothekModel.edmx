@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BibliothekModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BibliothekModelStoreContainer">
+    <EntitySet Name="Users" EntityType="BibliothekModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Works" EntityType="BibliothekModel.Store.Works" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Media" EntityType="BibliothekModel.Store.Media" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserWork" EntityType="BibliothekModel.Store.UserWork" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="MediaWork" Association="BibliothekModel.Store.MediaWork">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="Work" EntitySet="Works" />
+    </AssociationSet>
+    <AssociationSet Name="UserMedia" Association="BibliothekModel.Store.Loan">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Media" EntitySet="Media" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserWork_User" Association="BibliothekModel.Store.FK_UserWork_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserWork" EntitySet="UserWork" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserWork_Work" Association="BibliothekModel.Store.FK_UserWork_Work">
+      <End Role="Work" EntitySet="Works" />
+      <End Role="UserWork" EntitySet="UserWork" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Familyname" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Street" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PostCode" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="EMail" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RoleCostumer" Type="bit" Nullable="false" />
+    <Property Name="RoleAdministrator" Type="bit" Nullable="false" />
+    <Property Name="RoleStaff" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Works">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Titel" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Verlag" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Standort" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Media">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="WorkId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="UserWork">
+    <Key>
+      <PropertyRef Name="Orderer_Id" />
+      <PropertyRef Name="Orders_Id" />
+    </Key>
+    <Property Name="Orderer_Id" Type="int" Nullable="false" />
+    <Property Name="Orders_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="MediaWork">
+    <End Role="Media" Type="BibliothekModel.Store.Media" Multiplicity="*" />
+    <End Role="Work" Type="BibliothekModel.Store.Works" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Work">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Media">
+        <PropertyRef Name="WorkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Loan">
+    <End Role="User" Type="BibliothekModel.Store.Users" Multiplicity="0..1" />
+    <End Role="Media" Type="BibliothekModel.Store.Media" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Media">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserWork_User">
+    <End Role="User" Type="BibliothekModel.Store.Users" Multiplicity="1" />
+    <End Role="UserWork" Type="BibliothekModel.Store.UserWork" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserWork">
+        <PropertyRef Name="Orderer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserWork_Work">
+    <End Role="UserWork" Type="BibliothekModel.Store.UserWork" Multiplicity="*" />
+    <End Role="Work" Type="BibliothekModel.Store.Works" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Work">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserWork">
+        <PropertyRef Name="Orders_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="BibliothekModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="BibliothekModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="BibliothekModel.User" />
+          <EntitySet Name="Works" EntityType="BibliothekModel.Work" />
+          <EntitySet Name="Media" EntityType="BibliothekModel.Media" />
+          <AssociationSet Name="MediaWork" Association="BibliothekModel.MediaWork">
+            <End EntitySet="Media" Role="Media" />
+            <End EntitySet="Works" Role="Work" />
+          </AssociationSet>
+          <AssociationSet Name="UserMedia" Association="BibliothekModel.Loan">
+            <End EntitySet="Users" Role="User" />
+            <End EntitySet="Media" Role="Media" />
+          </AssociationSet>
+          <AssociationSet Name="UserWork" Association="BibliothekModel.UserWork">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="true" />
+          <Property Name="Familyname" Type="String" Nullable="true" />
+          <Property Name="Street" Type="String" Nullable="true" />
+          <Property Name="City" Type="String" Nullable="true" />
+          <Property Name="PostCode" Type="String" Nullable="true" />
+          <NavigationProperty Name="Loans" Relationship="BibliothekModel.Loan" FromRole="User" ToRole="Media" />
+          <NavigationProperty Name="Orders" Relationship="BibliothekModel.UserWork" FromRole="User" ToRole="Work" />
+          <Property Name="EMail" Type="String" Nullable="false" />
+          <Property Name="RoleCostumer" Type="Boolean" Nullable="false" />
+          <Property Name="RoleAdministrator" Type="Boolean" Nullable="false" />
+          <Property Name="RoleStaff" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Work">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titel" Type="String" Nullable="false" />
+          <Property Name="Author" Type="String" Nullable="false" />
+          <Property Name="Verlag" Type="String" Nullable="false" />
+          <Property Name="Standort" Type="String" Nullable="false" />
+          <NavigationProperty Name="Media" Relationship="BibliothekModel.MediaWork" FromRole="Work" ToRole="Media" />
+          <NavigationProperty Name="Orderer" Relationship="BibliothekModel.UserWork" FromRole="Work" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Media">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Number" Nullable="false" Type="String" />
+          <NavigationProperty Name="Work" Relationship="BibliothekModel.MediaWork" FromRole="Media" ToRole="Work" />
+          <NavigationProperty Name="User" Relationship="BibliothekModel.Loan" FromRole="Media" ToRole="User" />
+          <Property Name="WorkId" Nullable="false" Type="Int32" />
+          <Property Name="UserId" Type="Int32" Nullable="true" />
+        </EntityType>
+        <Association Name="MediaWork">
+          <End Type="BibliothekModel.Media" Multiplicity="*" Role="Media" />
+          <End Type="BibliothekModel.Work" Multiplicity="1" Role="Work" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Media">
+              <PropertyRef Name="WorkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Loan">
+          <End Type="BibliothekModel.User" Multiplicity="0..1" Role="User" />
+          <End Type="BibliothekModel.Media" Multiplicity="*" Role="Media" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Media">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserWork">
+          <End Type="BibliothekModel.User" Role="User" Multiplicity="*" />
+          <End Type="BibliothekModel.Work" Role="Work" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BibliothekModelStoreContainer" CdmEntityContainer="BibliothekModelContainer">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(BibliothekModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Familyname" ColumnName="Familyname" />
+          <ScalarProperty Name="Street" ColumnName="Street" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+          <ScalarProperty Name="EMail" ColumnName="EMail" />
+          <ScalarProperty Name="RoleCostumer" ColumnName="RoleCostumer" />
+          <ScalarProperty Name="RoleAdministrator" ColumnName="RoleAdministrator" />
+          <ScalarProperty Name="RoleStaff" ColumnName="RoleStaff" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Works">
+      <EntityTypeMapping TypeName="IsTypeOf(BibliothekModel.Work)">
+        <MappingFragment StoreEntitySet="Works">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Titel" ColumnName="Titel" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Verlag" ColumnName="Verlag" />
+          <ScalarProperty Name="Standort" ColumnName="Standort" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Media">
+      <EntityTypeMapping TypeName="IsTypeOf(BibliothekModel.Media)">
+        <MappingFragment StoreEntitySet="Media">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="WorkId" ColumnName="WorkId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserWork" TypeName="BibliothekModel.UserWork" StoreEntitySet="UserWork">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="Orderer_Id" />
+      </EndProperty>
+      <EndProperty Name="Work">
+        <ScalarProperty Name="Id" ColumnName="Orders_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

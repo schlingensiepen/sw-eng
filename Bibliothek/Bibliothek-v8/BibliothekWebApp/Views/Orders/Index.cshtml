@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BibliothekWebApp.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Neu ...", "Create") |
+    @Html.ActionLink("Bestellung für Kunden", "SelectUser") |
+    @Html.ActionLink("Bestellung eines Werkes", "SelectWork") | 
+    @Html.ActionLink("Schnellbestellung", "QuickEdit")
+</p>
+<p>
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="glyphicon glyphicon-filter"></i>
+        </span>
+        <input type="text" 
+               class="form-control"
+               id="filterText"
+               onkeyup="filter()"
+               placeholder="Filter eingeben ...">
+    </div>
+</p>
+<table class="table" id="filterTable">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Work)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.AsString)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Work.AsString)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", 
+               new { userId = item.User.Id, workId = item.Work.Id }) |
+            @Html.ActionLink("Löschen", "Delete", 
+                new { userId = item.User.Id, workId = item.Work.Id })
+        </td>
+    </tr>
+}
+</table>
+@Scripts.Render("~/Scripts/dataFilter.js")

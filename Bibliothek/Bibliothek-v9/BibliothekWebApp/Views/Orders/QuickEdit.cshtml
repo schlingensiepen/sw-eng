@@ -1,0 +1,80 @@
+﻿@model BibliothekWebApp.Models.OrderSelectViewModel
+@{
+    ViewBag.Title = "QuickEdit";
+}
+
+<style>    
+    th.rotate {
+        /* Something you can count on */
+        height: 140px;
+        white-space: nowrap;
+    }
+
+    th.rotate > div {
+        transform: 
+    /* Magic Numbers */
+                 translate(-5px, 55px)
+    /* 45 is really 360 - 45 */
+                 rotate(315deg);
+        width: 30px;
+    }
+    th.rotate > div > span {
+        border-bottom: 1px solid #ccc;
+        padding: 5px 10px;
+    }
+
+    table {
+        overflow: hidden;
+    }
+
+    tr:hover {
+        background-color: #ffa;
+    }
+
+    td, th {
+        position: relative;
+    }
+    td:hover::after,
+    th:hover::after
+    {
+        content: "";
+        position: absolute;
+        background-color: #ffa;
+        left: 0;
+        top: -5000px;
+        height: 10000px;
+        width: 100%;
+        z-index: -1;
+    }
+</style>
+
+<h2>QuickEdit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">           
+            <table>
+                <tr>
+                    <th class="rotate">
+                        <div><span>Kunde</span>
+                        </div></th>
+                    @foreach (var work in Model.UserOrderSelects.First().WorkUserOrderSelects)
+                    {
+                        <th class="rotate">
+                            <div><span>@work.DisplayName</span>
+                            </div></th>
+                    }
+                </tr>
+                @Html.EditorFor(model => Model.UserOrderSelects)                
+            </table>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Speichern" class="btn btn-default"/>
+            </div>
+        </div>
+    </div>
+}

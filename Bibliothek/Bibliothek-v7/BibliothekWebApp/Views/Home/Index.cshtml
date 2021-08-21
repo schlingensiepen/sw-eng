@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Demo Bibliothek</h1>
+    <p class="lead">
+        Beispiel einer einfachen Bibliothekssoftware auf Basis von MVC.NET 
+        zur Demonstration verschiedener einfacher Muster zur Userinteraktion.
+    </p>
+    <p><a href="https://docs.google.com/presentation/d/1lkydwKMicYrfsR0dOCYNKO3aAPk5NYtNy80zTVgIk9E/edit#slide=id.p" 
+          class="btn btn-primary btn-lg">Foliensatz &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Rolle Benutzer</h2>
+        <p>
+            Der Kunde (RoleCostumer) soll Werk bestellen und Bestellungen stornieren können und Medien ausleihen und zurückgeben können.
+        </p>
+        <p>
+            @Html.ActionLink("Meine Daten", "Edit", "Costumer",
+                null, new { @class = "btn btn-default btn-block" })
+
+            @Html.ActionLink("Meine Bestellungen", "My", "Catalog",
+                null, new { @class = "btn btn-default btn-block" })
+
+            @Html.ActionLink("Meine Leihliste", "My", "Borrow",
+                null, new { @class = "btn btn-default btn-block" })
+
+
+            @Html.ActionLink("Katalog", "Index", "Catalog",
+                null, new { @class = "btn btn-default btn-block" })
+            
+            @Html.ActionLink("Medien", "Index", "Borrow",
+                null, new { @class = "btn btn-default btn-block" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Rolle Administrator</h2>
+        <p>
+            Der Administrator (RoleAdministrator) darf Benutzerkonten löschen und ändern sowie Medien und Werke anlegen, löschen und ändern dürfen.
+        </p>
+        <p>
+            @Html.ActionLink("Benutzer", "Index", "Users",
+                null, new { @class = "btn btn-default btn-block" })
+
+            @Html.ActionLink("Werke", "Index", "Works",
+                null, new { @class = "btn btn-default btn-block" })
+
+            @Html.ActionLink("Medien", "Index", "Media",
+                null, new { @class = "btn btn-default btn-block" })
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Rolle Angestellter</h2>
+        <p>
+            Der Angestellte (RoleStaff) darf Werke für Anwender bestellen, Bestellungen stornieren sowie Ausleih- und Rückgabevorgänge verbuchen.
+        </p>
+        <p>
+            @Html.ActionLink("Bestellungen", "Index", "Orders",
+                null, new { @class = "btn btn-default btn-block" })
+            
+        </p>
+    </div>
+</div>

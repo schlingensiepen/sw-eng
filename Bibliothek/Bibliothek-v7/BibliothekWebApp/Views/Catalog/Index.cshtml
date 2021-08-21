@@ -1,0 +1,67 @@
+﻿@model IEnumerable<BibliothekLib.Work>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Verlag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Standort)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Verlag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Standort)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @if (ViewBag.OrderedIds.Contains(item.Id))
+            {
+                @Html.ActionLink("Stornieren", "Storno",
+                   new { id = item.Id,
+                       returnAction = ViewContext.RouteData.GetRequiredString("action")
+                   })
+            }
+            else
+            {
+                @Html.ActionLink("Bestellen", "Order", 
+                    new
+                    {
+                        id = item.Id,
+                        returnAction = ViewContext.RouteData.GetRequiredString("action")
+                    })
+            }
+            @if (item.Media.Any(m => m.User == null))
+            {
+                @:|
+                @Html.ActionLink("Leihen", "Borrow", new { id = item.Id})
+            }
+        </td>
+    </tr>
+}
+
+</table>
